@@ -71,8 +71,4 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/secret.yaml
-          kubectl apply -f k8s/deployment-backend.yaml
-          kubectl apply -f k8s/deployment-frontend.yaml
-          kubectl apply -f k8s/service-backend.yaml
-          kubectl apply -f k8s/service-frontend.yaml
+          kubectl apply -f k8s
