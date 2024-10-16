@@ -60,7 +60,7 @@ jobs:
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'v1.30.4'  # 替換為你的 Kubernetes 版本
+          version: 'v1.30.4'  # 替換為你的 Kubernetes
 
       - name: Create .kube directory
         run: mkdir -p $HOME/.kube
