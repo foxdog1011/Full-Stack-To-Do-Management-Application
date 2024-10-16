@@ -57,10 +57,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
 
+      - name: Verify AWS Credentials
+        run: aws sts get-caller-identity
+
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'v1.30.4'  # 替換為你的 Kubernetes 
+          version: 'v1.30.4'  # 替換為你的 Kubernetes 版本
 
       - name: Update kubeconfig
         run: |
