@@ -59,6 +59,7 @@ jobs:
         env:
           KUBECONFIG_DATA: ${{ secrets.KUBECONFIG }}
         run: |
+          mkdir -p $HOME/.kube
           echo "$KUBECONFIG_DATA" > $HOME/.kube/config
 
       - name: Deploy to Kubernetes
