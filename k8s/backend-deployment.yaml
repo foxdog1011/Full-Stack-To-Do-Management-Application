@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: my-todo-app-backend:latest  # 與構建的映像名稱一致
+          image: easonlin0/my-todo-app-backend:latest  # 與構建的映像名稱一致
           ports:
             - containerPort: 5000
           env:

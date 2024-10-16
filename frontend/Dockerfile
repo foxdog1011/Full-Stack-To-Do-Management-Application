@@ -1,5 +1,3 @@
-# frontend/Dockerfile
-
 # 使用官方 Node.js 镜像作为基础镜像
 FROM node:18 AS build
 
@@ -13,8 +11,12 @@ RUN npm install
 # 复制整个前端应用程序
 COPY . .
 
-# 复制 .env 文件
-COPY .env ./
+# 设置环境变量（如果需要）
+ARG JWT_SECRET
+ARG MONGO_URI
+
+ENV JWT_SECRET=1011
+ENV MONGO_URI=mongodb://mongo:27017/my-todo-app
 
 # 构建前端应用
 RUN npm run build

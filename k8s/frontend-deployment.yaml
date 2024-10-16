@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: my-todo-app-frontend:latest  # 確保與構建的映像名稱一致
+          image: easonlin0/my-todo-app-frontend:latest  # 確保與構建的映像名稱一致
           ports:
             - containerPort: 80
           resources:
