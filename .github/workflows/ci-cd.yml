@@ -63,7 +63,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'v1.30.4'  # 替換為你的 Kubernetes 版本
+          version: 'v1.30.4'  # 替換為你的 Kubernetes 
 
       - name: Update kubeconfig
         run: |
