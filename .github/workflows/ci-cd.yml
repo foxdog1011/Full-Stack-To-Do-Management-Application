@@ -30,14 +30,14 @@ jobs:
       with:
         context: ./backend
         push: true
-        tags: your-dockerhub-username/my-todo-app-backend:latest
+        tags: easonlin0/my-todo-app-backend:latest
 
     - name: Build and push frontend Docker image
       uses: docker/build-push-action@v4
       with:
         context: ./frontend
         push: true
-        tags: your-dockerhub-username/my-todo-app-frontend:latest
+        tags: easonlin0/my-todo-app-frontend:latest
 
   deploy:
     needs: build
