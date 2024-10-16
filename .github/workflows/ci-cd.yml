@@ -30,7 +30,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: easonlin/my-todo-app-backend:latest
+          tags: easonlin0/my-todo-app-backend:latest
           build-args: |
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             MONGO_URI=${{ secrets.MONGO_URI }}
@@ -40,7 +40,7 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: easonlin/my-todo-app-frontend:latest
+          tags: easonlin0/my-todo-app-frontend:latest
 
   deploy:
     needs: build
