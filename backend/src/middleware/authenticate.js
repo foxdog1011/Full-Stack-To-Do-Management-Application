@@ -1,4 +1,4 @@
-// src/middleware/authenticate.js
+// backend/src/middleware/authenticate.js
 const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
@@ -6,7 +6,7 @@ const authenticate = (req, res, next) => {
 
   // 確認 Authorization 標頭存在且格式正確
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: '授權失敗：無效的標頭' });
+    return res.status(401).json({ error: 'Authentication required.' });
   }
 
   const token = authHeader.split(' ')[1];
@@ -17,8 +17,8 @@ const authenticate = (req, res, next) => {
     req.user = decoded; // 將解碼後的資料存儲在 req.user
     next();
   } catch (err) {
-    console.error(err);
-    res.status(401).json({ message: '授權失敗：無效的 Token' });
+    console.error('Token verification failed:', err);
+    res.status(401).json({ error: 'Authentication required.' });
   }
 };
 

@@ -1,7 +1,6 @@
-// src/app.js
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan'); // 可選，建議添加日誌中間件
+const morgan = require('morgan');
 require('dotenv').config();
 
 const todoRoutes = require('./routes/todoRoutes');
@@ -10,9 +9,12 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // 前端的地址
+  credentials: true,
+}));
 app.use(express.json());
-app.use(morgan('dev')); // 可選，添加 morgan 日誌中間件
+app.use(morgan('dev'));
 
 // Routes
 app.use('/api/todos', todoRoutes);

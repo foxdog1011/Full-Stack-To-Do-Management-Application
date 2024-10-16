@@ -1,0 +1,14 @@
+# k8s/frontend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: todo-app
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort  # 或 LoadBalancer，視您的 Kubernetes 環境而定

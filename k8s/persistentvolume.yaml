@@ -1,0 +1,13 @@
+# k8s/persistentvolume.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+  namespace: todo-app
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mongo  # 本地路徑，適用於本地集群
