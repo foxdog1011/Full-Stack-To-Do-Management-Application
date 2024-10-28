@@ -1,4 +1,3 @@
-# k8s/persistentvolume.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -10,4 +9,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /data/mongo  # 本地路徑，適用於本地集群
+    path: /data/mongo  

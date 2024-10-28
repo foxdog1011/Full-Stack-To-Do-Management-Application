@@ -1,4 +1,3 @@
-// backend/src/routes/authRoutes.js
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
@@ -55,4 +54,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router; // 確保這裡是直接導出 router
+module.exports = router;

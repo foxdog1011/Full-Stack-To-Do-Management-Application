@@ -1,4 +1,3 @@
-// frontend/src/pages/Login.js
 
 import React, { useState } from 'react';
 import { loginUser } from '../api';

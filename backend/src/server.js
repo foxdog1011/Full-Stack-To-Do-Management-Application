@@ -1,4 +1,4 @@
-require('dotenv').config(); // 確保這一行位於文件的頂部
+require('dotenv').config();
 const mongoose = require('mongoose');
 const app = require('./app');
 

@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # 或 main，根據你的主分支名稱
+      - master  
   pull_request:
     branches:
-      - master  # 或 main
+      - master  
 
 jobs:
   build:
@@ -63,7 +63,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'v1.30.4'  # 替換為你的 Kubernetes 
+          version: 'v1.30.4'   
 
       - name: Update kubeconfig
         run: |

@@ -1,4 +1,3 @@
-# k8s/mongo-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,4 +10,4 @@ spec:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-  clusterIP: None  # Headless Service，用於 StatefulSets
+  clusterIP: None  

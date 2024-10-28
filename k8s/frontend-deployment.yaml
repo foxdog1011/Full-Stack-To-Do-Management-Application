@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: easonlin0/my-todo-app-frontend:latest  # 確保與構建的映像名稱一致
+          image: easonlin0/my-todo-app-frontend:latest  
           ports:
             - containerPort: 80
           resources:
@@ -25,4 +25,4 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-          imagePullPolicy: IfNotPresent  # 使用本地映像時設置為 Never 或 IfNotPresent
+          imagePullPolicy: IfNotPresent  

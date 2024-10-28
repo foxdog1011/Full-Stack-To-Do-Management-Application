@@ -1,4 +1,3 @@
-// frontend/src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoItem from '../components/TodoItem';
@@ -12,7 +11,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (token) {
-      // 解析 JWT Token 來獲取使用者資訊（簡化版）
       const payload = JSON.parse(atob(token.split('.')[1]));
       setUser({ id: payload.id, username: payload.username || 'User' });
       fetchTodos();

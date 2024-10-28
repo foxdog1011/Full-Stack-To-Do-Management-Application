@@ -1,4 +1,3 @@
-# k8s/frontend-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,4 +10,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: NodePort  # 或 LoadBalancer，視您的 Kubernetes 環境而定
+  type: NodePort  
