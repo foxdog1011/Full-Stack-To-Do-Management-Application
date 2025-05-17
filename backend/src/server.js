@@ -1,18 +1,8 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const app = require('./app');
+import http from 'node:http';
+import app from './app.js';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.Port || 3000;
 
-// 連接到 MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    // 啟動伺服器
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-  });
+http.createServer(app).listen(PORT, ()=>
+  console.log('API ready on gttp://localhost:${PORT}')
+)

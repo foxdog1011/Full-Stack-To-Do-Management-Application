@@ -1,29 +1,15 @@
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-require('dotenv').config();
-
-const todoRoutes = require('./routes/todoRoutes');
-const authRoutes = require('./routes/authRoutes');
+import express from 'express';
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: 'http://localhost:3000', // 前端的地址
-  credentials: true,
-}));
 app.use(express.json());
-app.use(morgan('dev'));
 
-// Routes
-app.use('/api/todos', todoRoutes);
-app.use('/api/auth', authRoutes);
+app.get('/health', (_req, res) => res.send('ok'));
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+app.get('/tasks', (_req, res) => res.json([]));
 
-module.exports = app;
+app.use((_req, res) => res.status(404).json({ message: "not found"}));
+
+export default app;
+
+
