@@ -1,8 +1,10 @@
-import http from 'node:http';
+import mongoose from 'mongoose';
 import app from './app.js';
+import cfg from './config/index.js';
 
-const PORT = process.env.Port || 3000;
 
-http.createServer(app).listen(PORT, ()=>
-  console.log('API ready on gttp://localhost:${PORT}')
-)
+mongoose.connect(cfg.mongoUri)
+  .then(() => {
+    app.listen(cfg.port, () => console.log(`API on ${cfg.port}`));
+  })
+  .catch((e) => console.error(e));
