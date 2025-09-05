@@ -1,36 +1,24 @@
-// backend/src/models/User.js
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  username: { type: String, required: true, unique: true, index: true },
+  passwordHash: { type: String, required: true },
+  roles: { type: [String], default: ['user'] },
+}, { timestamps: true });
 
-// 密碼加密
+userSchema.virtual('password')
+  .set(function (plain) { this._password = plain; })
+  .get(function () { return this._password; });
+
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
-  }
+  if (!this._password) return next();
+  this.passwordHash = await bcrypt.hash(this._password, 10);
+  next();
 });
 
-// 密碼比較方法
-userSchema.methods.comparePassword = function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.comparePassword = function (plain) {
+  return bcrypt.compare(plain, this.passwordHash);
 };
 
 module.exports = mongoose.model('User', userSchema);
