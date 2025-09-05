@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-and-smoke:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.runCommand({ ping: 1 })'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      NODE_ENV: test
+      PORT: 3001
+      MONGO_URI: mongodb://127.0.0.1:27017/todo_app
+      JWT_SECRET: dev-secret-change-me
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend deps
+        working-directory: backend
+        run: npm ci
+
+      - name: Run Jest
+        working-directory: backend
+        run: npm test
+
+      - name: Install wait-on & k6 (CLI)
+        run: |
+          npm i -g wait-on
+          curl -sSL https://github.com/grafana/k6/releases/download/v0.50.0/k6-v0.50.0-linux-amd64.tar.gz \
+            | tar -xz
+          sudo mv k6-v0.50.0-linux-amd64/k6 /usr/local/bin/k6
+          k6 version
+
+      - name: Start backend
+        working-directory: backend
+        run: |
+          node src/server.js & echo $! > server.pid
+          wait-on -t 60000 http://127.0.0.1:3001/health
+
+      - name: k6 smoke (e2e list/create)
+        env:
+          BASE_URL: http://127.0.0.1:3001
+        run: |
+          k6 run --address 127.0.0.1:0 -e BASE_URL=$BASE_URL k6/todos-e2e.js
+
+      - name: Stop backend
+        if: always()
+        working-directory: backend
+        run: |
+          if [ -f server.pid ]; then kill -9 $(cat server.pid) || true; fi
